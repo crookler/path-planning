@@ -7,12 +7,12 @@
 class PathPublisher : public rclcpp::Node {
 public:
     PathPublisher() : Node("dummy_path_publisher") {
-        path_pub_ = this->create_publisher<nav_msgs::msg::Path>("/path", 10);
-        timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&PathPublisher::publish_dummy_path, this));
+        path_publisher = this->create_publisher<nav_msgs::msg::Path>("/path", 10);
+        timer = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&PathPublisher::publish_dummy_path, this));
     } 
 private:
-    rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_pub_;
-    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_publisher;
+    rclcpp::TimerBase::SharedPtr timer;
 
     void publish_dummy_path() {
         auto msg = nav_msgs::msg::Path();
@@ -37,7 +37,7 @@ private:
 
         msg.poses = poses;
         RCLCPP_INFO(this->get_logger(), "Publishing %ld data points", msg.poses.size());
-        path_pub_->publish(msg);
+        path_publisher->publish(msg);
     }
 };
 

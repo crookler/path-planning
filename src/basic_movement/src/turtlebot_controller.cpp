@@ -6,16 +6,16 @@ class TurtleBotController : public rclcpp::Node {
 public:
     TurtleBotController() : Node("turtlebot_controller") {
         // Publisher for velocity commands (/cmd_vel is the turtlebot velocity topic)
-        vel_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
+        velocity_publisher = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
 
         // Subscriber for Lidar scan data (scan_callback is callback function bound to this instance with one )
-        scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
+        scan_subscriber = this->create_subscription<sensor_msgs::msg::LaserScan>(
             "/scan", 10, std::bind(&TurtleBotController::scan_callback, this, std::placeholders::_1));
     }
 
 private:
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr vel_pub_;
-    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr velocity_publisher;
+    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_subscriber;
 
     // Passing message from /scan topic
     void scan_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
@@ -31,7 +31,7 @@ private:
             cmd.angular.z = 0.0;  // No rotation
         }
 
-        vel_pub_->publish(cmd);
+        velocity_publisher->publish(cmd);
     }
 };
 

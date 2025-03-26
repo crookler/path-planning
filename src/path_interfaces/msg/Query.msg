@@ -1,2 +1,3 @@
-nav_msgs/Odometry start
+# Input for A* action server
+nav_msgs/Odometry start 
 geometry_msgs/Pose goal

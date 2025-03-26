@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(path_interfaces)
+project(environment_map)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -23,14 +23,15 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-find_package(geometry_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(path_interfaces REQUIRED)
 find_package(nav_msgs REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
 
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/Query.msg"
-  "msg/FlatGrid.msg"
-  DEPENDENCIES geometry_msgs nav_msgs
-)
+add_executable(flattener src/grid_flattener.cpp)
+ament_target_dependencies(flattener rclcpp path_interfaces nav_msgs)    
+
+install(TARGETS
+  flattener
+  DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

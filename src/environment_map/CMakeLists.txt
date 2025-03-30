@@ -26,12 +26,17 @@ endif()
 find_package(rclcpp REQUIRED)
 find_package(path_interfaces REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(rclcpp_components REQUIRED)
 
 add_executable(flattener src/grid_flattener.cpp)
-ament_target_dependencies(flattener rclcpp path_interfaces nav_msgs)    
+ament_target_dependencies(flattener rclcpp path_interfaces nav_msgs)   
+add_executable(searcher src/a_star_search.cpp) 
+ament_target_dependencies(searcher rclcpp path_interfaces rclcpp_action rclcpp_components)  
 
 install(TARGETS
   flattener
+  searcher
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

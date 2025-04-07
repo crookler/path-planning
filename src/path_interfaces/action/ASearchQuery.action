@@ -1,10 +1,8 @@
 # Goal Request (end point and current position relative to SLAM map)
-nav_msgs/Odometry start
-geometry_msgs/PoseStamped goal
+path_interfaces/PathQuery query
 ---
 # Result (path for robot to follow)
 nav_msgs/Path path
 ---
 # Feedback (intermediate lists from A* search - might also include incomplete path)
-uint32 openlistsize
-uint32 closedlistsize
+path_interfaces/PathFeedback feedback

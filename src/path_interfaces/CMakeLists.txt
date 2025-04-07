@@ -28,9 +28,10 @@ find_package(nav_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/Query.msg"
+  "msg/PathQuery.msg"
   "msg/FlatGrid.msg"
-  "action/PathQuery.action"
+  "msg/PathFeedback.msg"
+  "action/ASearchQuery.action"
   DEPENDENCIES geometry_msgs nav_msgs
 )
 

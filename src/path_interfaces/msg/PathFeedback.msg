@@ -1,0 +1,2 @@
+uint32 openlistsize
+uint32 closedlistsize
